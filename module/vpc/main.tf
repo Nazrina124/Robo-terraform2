@@ -11,7 +11,6 @@ resource "aws_vpc" "main" {
 ###peering
 
 resource "aws_vpc_peering_connection" "main" {
-  count                     = var.create_peer_route ? 1 : 0
   peer_vpc_id = aws_vpc.main.id
   vpc_id        = var.default_vpc_id
   auto_accept   = true
@@ -192,7 +191,7 @@ resource "aws_route_table_association" "db" {
 
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
-  
+
    lifecycle {
     prevent_destroy = true
   }
