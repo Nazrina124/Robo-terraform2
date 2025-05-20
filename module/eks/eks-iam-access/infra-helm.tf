@@ -1,6 +1,7 @@
 resource "null_resource" "kube-config" {
   depends_on = [aws_eks_node_group.main]
 
+
   provisioner "local-exec" {
     command =<<EOF
 aws eks update-kubeconfig --name ${var.env}-eks
