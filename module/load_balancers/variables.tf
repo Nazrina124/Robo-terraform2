@@ -1,0 +1,11 @@
+variable "internal"  {}
+variable "load_balancer_type" {}
+variable "allow_lb_sg_cidr" {}
+variable "vpc_id" {}
+variable "subnet_ids" {}
+variable "acm_https_arn" {}
+variable  "listner_protocol" {}
+variable  "ssl_policy" {}
+variable  "listener_port" {}
+variable "name" {}
+variable "env" {}

@@ -1,0 +1,53 @@
+name: Provision Roboshop infrastructure
+
+on: [workflow_dispatch]
+
+jobs:
+  # DEV-PLAN:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Terraform Init
+  #       run: terraform init -backend-config=env-dev/state.tfvarsig=env-dev/state.tfvars
+  #     - name: Terraform plan
+  #       run: terraform plan -var-file=env-dev/main.tfvars
+
+  DEV-APPLY:
+    runs-on: self-hosted
+    # environment: dev
+    # needs: DEV-PLAN
+    steps:
+      - uses: actions/checkout@v4
+      - name: Terraform Init
+        run: terraform init -backend-config=env-dev/state.tfvars
+      - name: Terraform apply
+        run: terraform apply -var-file=env-dev/main.tfvars -auto-approve -var vault_token=${{ secrets.VAULT_TOKEN }}
+             
+
+
+  # QA:
+  #   runs-on: ubuntu-latest
+  #   environment: qa
+  #   needs: DEV-APPLY
+  #   steps:
+  #     - name: Dummy Job for QA
+  #       run: echo just a dummy job
+
+  # UAT:
+  #  runs-on: ubuntu-latest
+  #  environment: uat
+  #  needs: QA
+  #  steps:
+  #    - name: Dummy Job for UAT
+  #      run: echo just a dummy job
+
+  # PROD:
+  #  runs-on: self-hosted
+  #  environment: prod
+  #  needs: UAT
+  #  steps:
+  #    - uses: actions/checkout@v4
+  #    - name: Terraform Init for PROD
+  #      run: terraform init
+  #      name: Terraform apply
+  #      run: terraform apply -var-file=env-dev/main.tfvars -auto-approve - var vault_token ${{ secrets.Vault_token }}
