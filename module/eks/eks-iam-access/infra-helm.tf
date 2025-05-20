@@ -1,4 +1,4 @@
-reosurce "null_resource" "kube-config" {
+resource "null_resource" "kube-config" {
    provisioner "local-exec" {
     command =<<EOF
 aws eks update-kubeconfig --name${var.env}-eks
