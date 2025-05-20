@@ -1,11 +1,11 @@
 resource "null_resource" "kube-config" {
-   provisioner "local-exec" {
-    command =<<EOF
-aws eks update-kubeconfig --name${var.env}-eks
-kubectl apply -f /opt/vault-token.yaml
-EOF 
-   }
+  depends_on = [aws_eks_node_group.main]
 
+  provisioner "local-exec" {
+    command =<<EOF
+aws eks update-kubeconfig --name ${var.env}-eks
+EOF
+  }
 }
 
 #### External secrets
