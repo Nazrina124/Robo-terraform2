@@ -192,9 +192,7 @@ resource "aws_route_table_association" "db" {
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
-   lifecycle {
-    prevent_destroy = true
-  }
+
   tags = {
     Name = "${var.env}-igw"
   }
