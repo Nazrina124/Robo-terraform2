@@ -27,7 +27,7 @@ resource "null_resource" "external-secrets-store" {
   provisioner "local-exec" {
     command =<<EOF
 kubectl apply -f - <<EOK
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ClusterSecretStore
 metadata:
   name: vault-backend
@@ -46,3 +46,6 @@ EOK
 EOF
   }
 }
+
+### Certificate tls
+##### vault 
