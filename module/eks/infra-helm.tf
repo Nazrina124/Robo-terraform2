@@ -29,12 +29,12 @@ resource "null_resource" "external-secrets-store" {
 kubectl apply -f - <<EOK
 apiVersion: external-secrets.io/v1
 kind: ClusterSecretStore
-metadata:
+metadata:http://vault.naifah.online:8200/
   name: vault-backend
 spec:
   provider:
     vault:
-      server: "http://vault.naifah.online:8200/"
+      server: ""
       path: "roboshop-${var.env}"
       version: "v2"
       auth:
@@ -49,3 +49,16 @@ EOF
 
 ### Certificate tls
 ##### vault 
+
+
+#### Install server for HPA
+
+resource "null_resource" "metric-server" {
+  depends_on = [null_resource.kube-config]
+
+  provisioner "local-exec" {
+    command =<<EOF
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+EOF
+  }
+}
