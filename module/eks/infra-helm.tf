@@ -34,7 +34,7 @@ metadata:
 spec:
   provider:
     vault:
-      server: "http://vaul.naifah.online:8200/"
+      server: "http://vault.naifah.online:8200/"
       path: "roboshop-${var.env}"
       version: "v2"
       auth:
