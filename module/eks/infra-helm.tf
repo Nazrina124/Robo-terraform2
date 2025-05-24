@@ -29,12 +29,12 @@ resource "null_resource" "external-secrets-store" {
 kubectl apply -f - <<EOK
 apiVersion: external-secrets.io/v1
 kind: ClusterSecretStore
-metadata:http://vault.naifah.online:8200/
+metadata:
   name: vault-backend
 spec:
   provider:
     vault:
-      server: ""
+      server: "http://vaul.naifah.online:8200/"
       path: "roboshop-${var.env}"
       version: "v2"
       auth:
@@ -46,9 +46,6 @@ EOK
 EOF
   }
 }
-
-### Certificate tls
-##### vault 
 
 
 #### Install server for HPA
